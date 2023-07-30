@@ -9,9 +9,9 @@ app.config['SECRET_KEY'] = 'super-secret-key'
 
 
 
-@app.route('/game', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def game():
-	return render_template("game.html")
+	return render_template("our_staff.html")
 #Code goes above here
 
 if __name__ == '__main__':
