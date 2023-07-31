@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>signin</title>
+</head>
+<body>
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <a href="/signup">Signup</a>
+        <a href="/signup">Team</a>
+        <!--we need to put the language like this Ar|En|He-->
+    </div>
+    <form method="POST" action="/signin">
+        <!-- Heading -->
+        <h2>
+        Log in to your account
+        </h2>
+
+        <!-- Subheading -->
+        
+        <!-- Email -->
+        <div>
+            <label >Email address</label>
+            <div>
+                <input type="email"  name="email" id="emailStr" required>
+            </div>
+        </div>
+
+        <!-- Password -->
+        <div>
+            <label>Password</label>
+            <div class="input-group">
+                <input type="password"  name="password" minlength="6">
+            </div>
+        </div>
+        <!-- Button -->
+        <div>
+            <input type="submit"/>
+
+        </div>
+    </form>
+    <br>
+
+</body>
+</html>
