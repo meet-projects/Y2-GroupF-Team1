@@ -96,6 +96,32 @@ def signin():
     else:
         return render_template('signin.html')
 
+questions = [
+    {
+        'question': 'How do you say car?',
+        'options': ['London', 'Berlin', 'Paris', 'Madrid'],
+        'answer': 'Paris'
+    },
+    {
+        'question': 'Which planet is known as the "Red Planet"?',
+        'options': ['Venus', 'Mars', 'Jupiter', 'Saturn'],
+        'answer': 'Mars'
+    }
+    # Add more questions as needed
+]
+
+@app.route('/quiz')
+def quiz():
+    return render_template('gameshiraz.html', questions=questions)
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    score = 0
+    for question in questions:
+        user_answer = request.form.get(question['question'])
+        if user_answer == question['answer']:
+            score += 1
+    return render_template('result.html', score=score, total=len(questions))
 
 
 
