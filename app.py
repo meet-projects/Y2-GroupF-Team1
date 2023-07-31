@@ -12,7 +12,8 @@ config = {
   'projectId': "lissan-y2-f",
   'storageBucket': "lissan-y2-f.appspot.com",
   'messagingSenderId': "565841630605",
-  'appId': "1:565841630605:web:c4833274438653ba2e99c4",'databaseURL':'https://lissan-y2-f-default-rtdb.europe-west1.firebasedatabase.app'
+  'appId': "1:565841630605:web:c4833274438653ba2e99c4",
+  'databaseURL':'https://lissan-y2-f-default-rtdb.europe-west1.firebasedatabase.app'
   }
 
 firebase = pyrebase.initialize_app(config)
@@ -78,7 +79,18 @@ questions = [
 
 @app.route('/quiz')
 def quiz():
-    return render_template('gameshiraz.html', questions=questions)
+    questions = [
+    {
+        'question': 'How do you say car?',
+        'options': ['London', 'Berlin', 'Paris', 'Madrid'],
+        'answer': 'Paris'
+    },
+    {
+        'question': 'Which planet is known as the "Red Planet"?',
+        'options': ['Venus', 'Mars', 'Jupiter', 'Saturn'],
+        'answer': 'Mars'
+    }]
+    return render_template("gameshiraz.html")
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -89,15 +101,26 @@ def submit():
             score += 1
     return render_template('result.html', score=score, total=len(questions))
 
-
-
-
-
-
-@app.route('/', methods=['GET', 'POST'])
-def game():
-	return render_template("our_staff.html")
 #Code goes above here
+
+@app.route('/calc' , methods=['GET', 'POST'])
+def calc():
+    error = ""
+    if request.method == 'POST':
+        num = request.form['donate']
+        try:
+            login_session['money'] = num
+            num = login_session['user']['money']
+            return render_template("calculator.html", num=num)
+        except:
+            error = "bla bla bla bla"
+    # the following code is to prevent an error if the user is not signed in and tries to
+    # access the /calc page
+    if "money" not in login_session:
+        return render_template("calculator.html", num=0)
+    else:
+        num = login_session['money']
+        return render_template("calculator.html", num=num)
 
 if __name__ == '__main__':
     app.run(debug=True)
