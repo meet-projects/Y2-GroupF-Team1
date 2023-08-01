@@ -103,24 +103,5 @@ def submit():
 
 #Code goes above here
 
-@app.route('/calc' , methods=['GET', 'POST'])
-def calc():
-    error = ""
-    if request.method == 'POST':
-        num = request.form['donate']
-        try:
-            login_session['money'] = num
-            num = login_session['user']['money']
-            return render_template("calculator.html", num=num)
-        except:
-            error = "bla bla bla bla"
-    # the following code is to prevent an error if the user is not signed in and tries to
-    # access the /calc page
-    if "money" not in login_session:
-        return render_template("calculator.html", num=0)
-    else:
-        num = login_session['money']
-        return render_template("calculator.html", num=num)
-
 if __name__ == '__main__':
     app.run(debug=True)
