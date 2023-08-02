@@ -50,6 +50,7 @@ def index():
 
 
 
+
 @app.route('/donate', methods=['GET', 'POST'])
 def donate():
     if request.method=='POST':
@@ -57,9 +58,51 @@ def donate():
         email=request.form['email']
         message=request.form['message']
         user={"name":name,"email":email,"message":message}
-        db.child('Users').push(user)
+        db.child('donations').push(user)
         return redirect (url_for('index'))
     return render_template("donate.html")
+
+@app.route('/info', methods=['GET','POST'])
+def info():
+    if request.method=='POST':
+        donations=db.child('donations').get().val()
+        return render_template('info.html',donations=donations)
+    else:
+        return render_template('admin.html')
+
+
+
+@app.route('/admin',methods=['GET','POST'])
+def admin():
+    error=''
+    if request.method=='POST':
+        name=request.form['name']
+        last_name=request.form['last_name']
+        email=request.form['email']
+        password=request.form['password']
+        phone=request.form['phone']
+
+
+        # COMMENTED OUT TO ASSURE ONLY ONE USER (ADMIN) IN THE DATABASE-rani 
+        try:
+        #     login_session['user']=auth.create_user_with_email_and_password(email, password)
+        #     user={'email':email, 'password':password}
+        #     UID = login_session['user']['localId']
+            # db.child('Users').child(UID).set(user)
+            login_session['user']=auth.sign_in_user_with_email_and_password(email, password)
+            return render_template('info.html')
+        except:
+            error='Authentication failed'
+            return render_template('admin.html')
+    else:
+        return render_template('admin.html')
+                
+
+
+
+
+
+
 
 
 

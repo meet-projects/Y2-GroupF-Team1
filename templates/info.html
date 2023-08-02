@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	<h1>All of our donors</h1>
+	{% for donation in donations %}
+
+    <div class="user-container"></div>
+    <div class="user-details"></div>
+    <h3>{{ donations[donation]["name"] }}</h3>
+    <h3>{{ donations[donation]["message"] }}</h3>
+      
+
+  {% endfor %}
+
+</body>
+</html>

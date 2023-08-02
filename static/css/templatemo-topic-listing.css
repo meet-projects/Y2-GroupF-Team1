@@ -968,7 +968,8 @@ blockquote {
 .custom-form .form-control {
   border-radius: var(--border-radius-large);
   color: var(--p-color);
-  margin-bottom: 24px;
+/*  margin-bottom: 24px;*/
+background-color: #FFF;
   padding-top: 13px;
   padding-bottom: 13px;
   padding-left: 20px;
